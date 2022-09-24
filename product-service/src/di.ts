@@ -1,5 +1,5 @@
-import StaticProductRepo from "./repositories/StaticProductRepo";
-import { IProductRepoInterface } from "./repositories/ProductRepoInterface";
+import StaticProductRepo from "@/repositories/StaticProductRepo";
+import {IProductRepoInterface} from "@/types/repositories";
 
 export default {
   productRepo: new StaticProductRepo(),

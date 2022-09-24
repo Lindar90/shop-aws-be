@@ -5,8 +5,3 @@ export interface IProduct {
   price: number,
   title: string,
 }
-
-export interface IProductRepoInterface {
-  getAll(): IProduct[],
-  getById(id: string): IProduct,
-}
