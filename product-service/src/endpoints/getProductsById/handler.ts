@@ -1,5 +1,5 @@
 import {Handler} from "aws-lambda";
-import {formatJson404Response, formatJSONResponse} from '@/libs/api-gateway';
+import {formatJson404Response, formatJson500Response, formatJSONResponse} from '@/libs/api-gateway';
 import { middyfy } from '@/libs/lambda';
 
 import di from '@/di';
@@ -7,14 +7,18 @@ import di from '@/di';
 const { productRepo } = di;
 
 export const getProductsById: Handler = async (event) => {
-  const id = event.pathParameters.productId;
-  const product = await productRepo.getById(id)
+  try {
+    const id = event.pathParameters.productId;
+    const product = await productRepo.getById(id)
 
-  if (!product) {
-    return formatJson404Response('Product not found');
+    if (!product) {
+      return formatJson404Response('Product not found');
+    }
+
+    return formatJSONResponse({ data: product });
+  } catch (e) {
+    return formatJson500Response();
   }
-
-  return formatJSONResponse({ data: product });
 };
 
 export const main = middyfy(getProductsById);

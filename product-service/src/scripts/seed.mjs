@@ -1,3 +1,10 @@
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import {DynamoDBDocumentClient, PutCommand} from "@aws-sdk/lib-dynamodb";
+
+export const ddbClient = new DynamoDBClient({ region: 'eu-central-1' });
+export const ddbDocClient = DynamoDBDocumentClient.from(ddbClient);
+
+// SEED
 [
   {
     "count": 4,
@@ -55,4 +62,24 @@
     "price": 15,
     "title": "[MOCK] ProductName"
   }
-]
+].forEach(async (item) => {
+  ddbDocClient.send(new PutCommand({
+    TableName: 'products',
+    Item: {
+      id: item.id,
+      title: item.title,
+      description: item.description,
+      price: item.price,
+    },
+  }));
+
+  ddbDocClient.send(new PutCommand({
+    TableName: 'stocks',
+    Item: {
+      product_id: item.id,
+      count: item.count,
+    },
+  }));
+});
+
+
