@@ -8,6 +8,8 @@ const { productRepo } = di;
 
 export const getProductsList: Handler = async () => {
   try {
+    console.log('getProductsList');
+
     const products = await productRepo.getAll();
 
     return formatJSONResponse({ data: products });

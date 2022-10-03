@@ -18,7 +18,7 @@ export const createProduct: Handler = async (event) => {
   try {
     const body = event.body;
 
-    console.log('Request body: ', body);
+    console.log('createProduct request body: ', body);
 
     if (!isValidRequest(body)) {
       return formatJson400Response();

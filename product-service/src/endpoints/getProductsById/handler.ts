@@ -9,6 +9,9 @@ const { productRepo } = di;
 export const getProductsById: Handler = async (event) => {
   try {
     const id = event.pathParameters.productId;
+
+    console.log('getProductsById productID: ', id);
+
     const product = await productRepo.getById(id)
 
     if (!product) {
