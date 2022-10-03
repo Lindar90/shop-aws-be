@@ -1,8 +1,9 @@
-import StaticProductRepo from "@/repositories/StaticProductRepo";
 import {IProductRepoInterface} from "@/types/repositories";
+import DynamoDbProductRepo from "@/repositories/DynamoDbProductRepo";
+import {ddbDocClient} from "@/dbClient";
 
 export default {
-  productRepo: new StaticProductRepo(),
+  productRepo: new DynamoDbProductRepo(ddbDocClient),
 } as {
   productRepo: IProductRepoInterface,
 };
